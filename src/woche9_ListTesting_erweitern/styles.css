@@ -1,0 +1,40 @@
+.hbox {
+	-fx-padding: 5px;
+	-fx-spacing: 5px;
+	-fx-alignment: center-left;
+}
+
+.vbox {
+	-fx-padding: 5px;
+	-fx-spacing: 5px;
+	-fx-alignment: top-center;
+}
+
+.label {
+  -fx-font-size: 24px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #000000;
+  -fx-alignment: center;
+  -fx-pref-width: 300;
+}
+
+.text-field {
+  -fx-font-size: 24px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #000000;
+  -fx-alignment: center;
+}
+
+.button {
+  -fx-font-size: 24px;
+  -fx-font-weight: bold;
+  -fx-font-style: italic;
+  -fx-text-fill: #000000;
+  -fx-min-width: 400;
+}
+
+.combo-box-base {
+  -fx-font-size: 24px;
+  -fx-font-weight: bold;
+  -fx-font-style: italic;
+}

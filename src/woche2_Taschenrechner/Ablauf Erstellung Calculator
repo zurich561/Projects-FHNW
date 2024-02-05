@@ -1,0 +1,151 @@
+Ablauf Erstellung Taschenrechner:
+
+Class: Main
+	1. Erstellung Main Methode gemäss Vorlage
+
+Class: View
+	2. Felder definieren für UI:
+			protected TextField txtCalc; //Display
+			protected Button digits[] = new Button[10]; //Zahlen 0 - 9
+			protected Button btnPlus; // + Button
+			protected Button btnClear; // C Button
+			protected Button btnEquals; // = Button
+			
+	3. In der "public Calculator_View(Stage stage, Calculator_Model model)" Methode die Felder dem GUI hinzufügen:
+	
+		1. BorderPane definieren:
+			BorderPane root = new BorderPane();
+			
+		2. Display hinzufügen: 
+			txtCalc = new TextField();
+			txtCalc.setDisable(true);
+			root.setTop(txtCalc);
+			
+		3. Neues GridPane (für alle Buttons) erstellen und dem root hinzufügen:
+			GridPane buttons = new GridPane();
+			root.setCenter(buttons);
+			
+		4. Den Number Buttons eine Nummer zuweisen: 
+			for (int i = 0; i < digits.length; i++) {
+				digits[i] = new Button(Integer.toString(i));
+			}
+			
+		5. Die Nummer 0 muss separat dem grid hinzugefügt werden:
+			buttons.add(digits[0], 0, 3, 3, 1);
+			
+		6. Alle anderen Nummern dem grid hinzufügen: 
+			for (int i = 1; i < digits.length; i++) {
+				buttons.add(digits[i], (i-1) % 3, 2 - (i-1) / 3);
+			}
+			
+		7. Spezialbuttons, in diesem Fall '+', '=' und 'C', dem grid hinzufügen: 
+			btnPlus = new Button("+");
+			buttons.add(btnPlus, 3, 0);
+			
+			btnClear = new Button("C");
+			buttons.add(btnClear, 3, 1);
+			
+			btnEquals = new Button("=");
+			buttons.add(btnEquals, 3, 2, 1, 2);
+			
+		8. Zusatz: Damit sich die Grösse anpasst folgenden Code verwenden: 
+			// Configure grid columns and rows to resize to available space
+			// See "GridPane" in the JavaFX API, section "Percentage Sizing"
+			ColumnConstraints cc = new ColumnConstraints();
+			cc.setPercentWidth(25);
+			buttons.getColumnConstraints().addAll(cc, cc, cc, cc);
+			RowConstraints rc = new RowConstraints();
+			rc.setPercentHeight(25);
+			buttons.getRowConstraints().addAll(rc, rc, rc, rc);
+			
+		9. Root der Szene übergeben + der Stage einen Titel geben + die Scene der Stage übergeben:
+			Scene scene = new Scene(root);
+			stage.setTitle("Taschenrechner");
+			stage.setScene(scene);
+			
+		10. Start Methode hinzufügen: 
+				public void start() {
+					stage.show();
+				}
+			
+Class: Controller
+		11. Unter Hauptklasse das view und das model verbinden:
+				private Calculator_Model model;
+	    		private Calculator_View view;
+    		
+    	12. Die Number Buttons mittels einer for-schleife und Action-Event aktivieren: 
+	    		for (Button b : view.digits) {
+				b.setOnAction(this);
+		
+		13. Eventhandler automatisch importieren lassen: 
+				public class CalculatorController "implements EventHandler<ActionEvent>" {
+				
+		14. Die übrigens Buttons einzeln aktivieren: 
+				view.btnPlus.setOnAction(this);
+				view.btnClear.setOnAction(this);
+				view.btnEquals.setOnAction(this);
+				
+		15. Fehlermeldung bei Hauptmethode -> Eventhandler importieren lassen: 
+				@Override
+				public void handle(ActionEvent arg0) {
+				}
+				
+		16. Welcher Button wurde geklickt, finden wir mit folgender Methode: 
+				public void handle(ActionEvent event) {
+				Button btn = (Button) event.getSource(); //mit event.getSource sucht er den angeklickten Button und weist diesen btn zu.
+					
+		17. Den angeklickten Button, namens btn, nehmen und weiterverarbeiten: 
+				if (btn == view.btnClear) {
+					view.txtCalc.setText(""); // view.txtCalc ist der Text im Display!
+				} else if (btn == view.btnEquals) {
+					String result = model.calculate(view.txtCalc.getText()); // hier greift der Controller auf das Model zu für die Berechnung.
+					view.txtCalc.setText(result); // Resultat aus Model wird als Text angezeigt.
+				} else { // tritt ein wenne ein Nummer Buttong gedrückt wurde. 
+					view.txtCalc.setText(view.txtCalc.getText() + btn.getText()); //holt erst was bis anhin drin stand und fügt die neue Zahl dem hinzu.
+				}
+				
+Class: Model 
+		18. Im Model die Methode calculate erstellen (wurde in Schritt 17 gebraucht): 	
+				protected String calculate(String in) { //Eingabe der Methode ist immer ein String.
+			
+		19. Die nötigen Variablen definieren für Error Message und Lösung: 
+				boolean error = false;
+	    		String result;
+	    		
+	    20. Den Operator von den Zahlen trennen: 
+	    		String[] strValues = in.split("\\+"); //Beispiel nur mit einem +
+	    		String[] strValues = in.split("\\+-\"); //Beispiel mit +, - und \. 
+	    			// Warum hat das + \\ vorne dran? 
+	    					Weil + ansonsten eine spezielle Funktion einnimmt und es nicht herausgenommen wird. 
+	    					Dasselbe gilt für das *, heisst man muss folgendes einfügen\\*. 
+	    	
+	    		In strValues werden nun ausschliesslich die Zahlen gespeichert: 1 2 bsp.
+	    	
+	    21. Einen integer array erstellen:
+	    		int[] intValues = new int[strValues.length]; //Länge des integer arrays ist strValues.length
+	    
+	    22. Dem integer array die Werte von strValues hinzufügen. Dies wird mit einer Try Catch Methode gemacht, 
+	    	da es, falls es sich nicht um Integers handelt, eine Fehlermeldung generieren soll: 
+	    		try { // parseInt may produce an exception
+    				for (int i = 0; i < strValues.length; i++) {
+    		    	intValues[i] = Integer.parseInt(strValues[i]);
+    				}
+				} catch (NumberFormatException e) { //catch tritt ein, wenn das try nicht funktioniert. Setzt error auf true.
+		    		error = true;
+				}
+				
+		23. Sagen was passiert, wenn Error = true ist und else falls nicht. Else berechnet alles (in diesem Fall nur für +):
+			if (error) {
+		    	result = "Error";
+			} else {
+		    	int sum = 0; //Summe mit 0 definieren
+		    	for (int intValue : intValues) sum += intValue; //die for-Schleife durchsucht jede Zahl in intValues und zieht diese in intValue
+		    													//mit sum+= intValues; wird in jedem Durchgang der Schleife die gezogene Zahl hinzugefügt
+		    													//und in sum gespeichert
+		    	result = Integer.toString(sum);	//Das Ergebnis (sum) muss in ein String umgewandelt werden, damit es angezeigt wird
+			}
+		
+		24. Das Ergebnis an die Funktion zurückgeben:
+				return result; // Rückgabe des Ergebnisses als String, da zuvor umgewandelt
+			
+	    	

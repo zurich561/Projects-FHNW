@@ -1,0 +1,74 @@
+.root {
+    -fx-font-family: sans-serif; 
+    -fx-font-size: 12px;
+    -fx-background-color: white;
+}
+
+#modeLabel {
+	-fx-font-weight: bold;
+	-fx-font-size: 15px;
+	}	
+	
+#encryptionCodeTxtField {
+	-fx-border-size: 15px;
+	-fx-text-fill: black;
+	}
+
+.stylePressedButton {
+	-fx-border-color: black;
+	}
+	
+.copyCodeButtonPressed {
+	-fx-background-color: white; 
+    -fx-text-fill: black; 
+    -fx-border-color: white;
+    }
+
+.button {
+    -fx-background-color: white; 
+    -fx-text-fill: black;
+    -fx-font-weight: bold; 
+    //-fx-padding: 10 20; 
+    -fx-border-radius: 3; 
+    -fx-background-radius: 3; 
+	}
+
+.button:pressed {
+	-fx-background-color: black;
+	-fx-text-fill: white;
+	}
+
+
+.button:hover {
+    -fx-border-color: black;
+	}
+
+
+.text-field {
+    -fx-background-color: #f2f2f2; 
+    -fx-text-fill: #333; 
+    -fx-padding: 5; 
+    -fx-border-color: #ccc; 
+    -fx-border-width: 2px; 
+    -fx-background-radius: 5; 
+    -fx-border-radius: 5; 
+	}
+
+
+.text-field:hover {
+    -fx-background-color: #e6e6e6; 
+	}
+
+
+.text-field:focused {
+    -fx-border-color: #3498db; 
+	}
+
+
+
+
+    
+
+
+
+

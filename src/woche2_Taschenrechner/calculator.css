@@ -1,0 +1,54 @@
+/* Stil für alle Textfelder */
+.text-field {
+    -fx-background-color: lightgray; /* Ändern Sie 'lightgray' auf die gewünschte Hintergrundfarbe */
+    -fx-text-fill: black; /* Ändern Sie 'black' auf die gewünschte Textfarbe */
+    -fx-font-size: 25px;
+}
+
+/* Stil für alle Buttons */
+.button {
+    -fx-background-color: #E0E0E0; /* Grauer Hintergrund */
+    -fx-font-size: 40px; /* Schriftgröße anpassen */
+    -fx-font-weight: bold; /* Fetter Text */
+    -fx-min-width: 100px;
+    -fx-min-height: 50px;
+    //-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.3) , 0,0,0,1 );
+    -fx-padding: 5px 10px; /* Anpassung der inneren Abstände (oben und unten, links und rechts) */
+    -fx-margin: 5px; /* Anpassung der äußeren Abstände */
+ 
+}
+
+/* Stil für den Gleichheitsbutton "=" */
+.equals-button {
+    -fx-background-color: #FF9500; /* Oranger Hintergrund für den Gleichheitsbutton */
+    -fx-text-fill: white; /* Weiße Schriftfarbe */
+}
+
+/* Stil für die Zahlenbuttons */
+.number-button {
+    -fx-background-color: #F0F0F0; /* Hellgrauer Hintergrund für die Zahlenbuttons */
+    -fx-text-fill: black; /* Schwarze Schriftfarbe */
+}
+
+/* Stil für den Löschen-Button "<" */
+.delete-button {
+    -fx-background-color: #F0F0F0; /* Hellgrauer Hintergrund für den Löschen-Button */
+    -fx-text-fill: black; /* Schwarze Schriftfarbe */
+}
+
+/* Stil für den C-Button "C" (Löschen) */
+.clear-button {
+    -fx-background-color: #F0F0F0; /* Hellgrauer Hintergrund für den Löschen-Button */
+    -fx-text-fill: black; /* Schwarze Schriftfarbe */
+}
+
+/* Stil für die Operationsbuttons (+, -, *, /) */
+.operation-button {
+    -fx-background-color: #FF9500; /* Oranger Hintergrund für Operationsbuttons */
+    -fx-text-fill: white; /* Weiße Schriftfarbe */
+}
+
+/* Effekt beim Klicken */
+.button:pressed {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.6) , 10, 0, 0, 1 );
+}
